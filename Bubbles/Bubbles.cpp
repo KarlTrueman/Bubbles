@@ -3,6 +3,13 @@
 #include <ctime>
 #include <iostream>
 #include <sstream>
+#include <SFML/Network.hpp>
+#include "queue.hpp"
+#include "receiver.h"
+#include "server.h"
+#include <thread>
+#include <windows.h>
+
 
 #define BUBBLE_SIZE 20
 #define CANNON_H  60
@@ -13,10 +20,95 @@
 #define VELOCITY  7
 #define WINDOW_H  600
 #define WINDOW_W  1200
+#define BUFF_SIZE 1024
 
 int main(int argc, const char* argv[])
 {
     srand(time(NULL));
+
+    //Setting up the queue, recipient and server
+    Queue<message> queue;
+    sf::IpAddress recipient = sf::IpAddress::Broadcast;
+    server serv;
+
+    //Broadcast message
+    std::string msg = "msg";
+    sf::Packet packet1;
+    packet1 << msg;
+    sf::UdpSocket testingServer;
+    unsigned short remote_port = 55001;
+    sf::Socket::Status status = testingServer.send(msg.c_str(), msg.length(), recipient, 55000);
+    if (status != sf::Socket::Done)
+    {
+        std::cout << "Problem Sending Broadcast\n";
+        return 1;
+    }
+    else
+    {
+        std::cout << "Broadcasting\n";
+    }
+
+    char data[BUFF_SIZE];
+    std::size_t received;
+    std::memset(data, 0, BUFF_SIZE);
+
+    //Unblock the UDP socket so that it will let in messages and create a server if no messages are recieved
+    testingServer.setBlocking(false);
+    Sleep(1500);
+    if (testingServer.receive(data, BUFF_SIZE, received, recipient, remote_port) != sf::Socket::Done)
+    {
+        std::cout << "Setting Up Server Now\n";
+        std::thread(&server::Server, &serv).detach();
+        Sleep(1500);
+        if (testingServer.send(packet1, sf::IpAddress::Broadcast, 55000) != sf::Socket::Done)
+        {
+            std::cout << "Problem Sending Brodcast\n";
+            return 1;
+        }
+        Sleep(1500);
+        if (testingServer.receive(data, BUFF_SIZE, received, recipient, remote_port) != sf::Socket::Done)
+        {
+            std::cout << "Failed to connect to self\n";
+        }
+        else
+        {
+            std::cout << "Connected to self\n";
+        }
+    }
+    else
+    {
+        std::cout << "Connected to other server\n" << std::endl;
+    }
+    testingServer.setBlocking(true);
+
+    std::shared_ptr<sf::TcpSocket> tcp = std::make_shared<sf::TcpSocket>();
+    //Spawn server if cannot find another server
+    if (tcp->connect(sf::IpAddress::getLocalAddress(), 55002) != sf::Socket::Done)
+    {
+        std::cout << "Unable to Connect to Server\n";
+        return 1;
+    }
+    std::cout << "Connected to the Server\n";
+
+    sf::Packet introP;
+    //status = tcp->receive(introP);
+    if (tcp->receive(introP) != sf::Socket::Done)
+    {
+        std::cout << "Error receiving seed\n";
+        return 0;
+    }
+    std::cout << "Seed Recieved\n";
+
+    int player_number = 0;
+    unsigned int setUp = 0;
+    introP >> player_number >> setUp;
+    std::cout << "Game setup: " << setUp << " Player Number: " << player_number << std::endl;
+    srand(setUp);
+    std::shared_ptr<receiver> myReceiver = std::make_shared<receiver>(tcp, queue);
+    std::thread(&receiver::recv_loop, myReceiver).detach();
+
+
+
     sf::RenderWindow window(sf::VideoMode(WINDOW_W, WINDOW_H), "Bubble");
     window.setFramerateLimit(60);
 
