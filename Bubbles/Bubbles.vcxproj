@@ -169,7 +169,6 @@
     <ClInclude Include="queue.h" />
     <ClInclude Include="receiver.h" />
     <ClInclude Include="server.h" />
-    <ClInclude Include="queue.hpp" />
     <ClInclude Include="UDPreceiver.h" />
     <ClInclude Include="util.hpp" />
   </ItemGroup>

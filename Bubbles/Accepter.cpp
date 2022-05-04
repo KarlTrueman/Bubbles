@@ -5,8 +5,9 @@
 #include <sstream>
 #include <thread>
 #include <memory>
+#include "queue.h"
 
-Accepter::Accepter(Queue<message>& q, List<std::shared_ptr<sf::TcpSocket>>& s) :
+Accepter::Accepter(queue<message>& q, List<std::shared_ptr<sf::TcpSocket>>& s) :
     m_queue(q),
     m_socket(s)
 {}

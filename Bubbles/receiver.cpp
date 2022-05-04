@@ -7,8 +7,9 @@
 #include <sstream>
 #include <thread>
 #include <tuple>
+#include "queue.h"
 
-receiver::receiver(std::shared_ptr<sf::TcpSocket> s, Queue<message> &q) :
+receiver::receiver(std::shared_ptr<sf::TcpSocket> s, queue<message> &q) :
     m_socket(s),
     m_queue(q)
 {

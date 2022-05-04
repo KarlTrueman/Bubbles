@@ -4,11 +4,12 @@
 #include <iostream>
 #include <sstream>
 #include <SFML/Network.hpp>
-#include "queue.hpp"
+#include "queue.h"
 #include "receiver.h"
 #include "server.h"
 #include <thread>
 #include <windows.h>
+#include"Accepter.h"
 
 
 #define BUBBLE_SIZE 20
@@ -41,7 +42,7 @@ int main(int argc, const char* argv[])
     srand(time(NULL));
 
     //Setting up the queue, recipient and server
-    Queue<message> queue;
+    queue<message> queue;
     sf::IpAddress recipient = sf::IpAddress::Broadcast;
     server serv;
 

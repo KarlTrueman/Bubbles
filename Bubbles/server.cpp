@@ -7,13 +7,13 @@
 #include <thread>
 #include <tuple>
 #include"UDPReceiver.h"
-#include "queue.hpp"
+#include "queue.h"
 #include "list.h"
 #define BUFF_SIZE 1024
 
 void server::Server()
 {
-    Queue<message> queue;
+    queue<message> myQueue;
     List<std::shared_ptr<sf::TcpSocket>> sockets;
     sf::UdpSocket socket;
     unsigned int local_port = 55000;
@@ -28,7 +28,7 @@ void server::Server()
         std::cout << "Server bound to port: " << local_port << "\n";
     }
     // TODO: we need to start a receiver thread.
-    std::thread(Accepter(queue, sockets)).detach();
+    std::thread(Accepter(myQueue, sockets)).detach();
     std::shared_ptr<UDPreceiver> receiver = std::make_shared<UDPreceiver>(socket);
     std::thread(&UDPreceiver::recv, receiver).detach();
     sf::IpAddress recipient;
@@ -41,7 +41,7 @@ void server::Server()
 	{
 
 
-		auto p = queue.pop();
+		auto p = myQueue.pop();
 		sf::Packet packet = std::get<1>(p);
 		sf::TcpSocket* otherSocket = std::get<0>(p);
 		auto sendToOne = [&packet, &otherSocket](std::shared_ptr<sf::TcpSocket> socket) {

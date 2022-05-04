@@ -1,10 +1,10 @@
-
 #include <condition_variable>
 #include <mutex>
 #include <queue>
-
+#include <thread>
+#include <string>
 template <typename T>
-class Queue
+class queue
 {
 public:
     T pop() // Blocking pop
@@ -33,9 +33,9 @@ public:
         queue_.push(item);
         cond_.notify_one();
     }
-    Queue() = default;
-    Queue(const Queue&) = delete;            // disable copying
-    Queue& operator=(const Queue&) = delete; // disable assignment
+    queue() = default;
+    queue(const queue&) = delete;            // disable copying
+    queue& operator=(const queue&) = delete; // disable assignment
 
 private:
     std::queue<T> queue_;

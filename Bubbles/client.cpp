@@ -16,7 +16,7 @@ int Client()
     // TODO: send the registration message consisting of the user name.
     // register:userName
 
-    Queue<message> queue;
+    queue<message> queue;
     receiver myReceiver{socket_ptr, queue};
     // TODO: launch a receiver thread
 
