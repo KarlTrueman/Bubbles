@@ -17,7 +17,7 @@ void Accepter::operator()()
     unsigned int seed = time(NULL);
     sf::TcpListener listener;
     // TODO the listener has to listen.
-    if (listener.listen(4304) != sf::Socket::Done)
+    if (listener.listen(55002) != sf::Socket::Done)
     {
         std::cerr << "Error listening on port \n";
         return;

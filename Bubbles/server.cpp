@@ -9,7 +9,6 @@
 #include"UDPReceiver.h"
 #include "queue.hpp"
 #include "list.h"
-#define PORT 4304
 #define BUFF_SIZE 1024
 
 void server::Server()
@@ -21,12 +20,12 @@ void server::Server()
     // TODO: we need to bind our socket to a port
     if (socket.bind(local_port) != sf::Socket::Done)
     {
-        std::cout << "Error binding to port";
+        std::cout << "Error binding to port: " << local_port << "\n";
 		exit(0);
     }
     else
     {
-        std::cout << "Server bound to port";
+        std::cout << "Server bound to port: " << local_port << "\n";
     }
     // TODO: we need to start a receiver thread.
     std::thread(Accepter(queue, sockets)).detach();

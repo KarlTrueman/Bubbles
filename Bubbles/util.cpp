@@ -2,6 +2,7 @@
 #define UTIL_H
 #include "util.hpp"
 #include <iostream>
+#define PORT 4300
 
 // Ignore this if you use your own send/receive/bind calls.
 
