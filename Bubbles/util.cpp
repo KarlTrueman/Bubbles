@@ -1,5 +1,4 @@
-#ifndef UTIL_H
-#define UTIL_H
+
 #include "util.hpp"
 #include <iostream>
 #define PORT 4300
@@ -16,6 +15,3 @@ void net_run(std::function<sf::Socket::Status(void)> f, std::string error_messag
         exit(0);
     }
 }
-
-
-#endif

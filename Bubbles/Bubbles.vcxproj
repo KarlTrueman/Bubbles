@@ -154,6 +154,7 @@
     <ClCompile Include="client.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="queue.cpp" />
     <ClCompile Include="receiver.cpp" />
     <ClCompile Include="server.cpp" />
     <ClCompile Include="UDPreceiver.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="Grid.h" />
     <ClInclude Include="list.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="queue.h" />
     <ClInclude Include="receiver.h" />
     <ClInclude Include="server.h" />
     <ClInclude Include="queue.hpp" />

@@ -20,7 +20,7 @@ public:
 	bool isActive();
 	void setBubblePos(sf::Vector2f pos);
 	void setBubbleColour(sf::Color fillColour);
-	void setActive(bool active);
+	void setActive(bool isActive);
 	void setBubbleOrigin(sf::Vector2f origin);
 	void setBubbleVel(sf::Vector2f newVel);
 	void setBubbleRadius(int radius);

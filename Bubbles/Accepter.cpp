@@ -23,7 +23,7 @@ void Accepter::operator()()
         return;
     }
     std::cout << "Bound to port\n";
-    while (true)
+    while (1)
     {
         std::shared_ptr<sf::TcpSocket> socket = std::make_shared<sf::TcpSocket>();
         // TODO accept a connection on socket

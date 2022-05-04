@@ -16,7 +16,7 @@ void server::Server()
     Queue<message> queue;
     List<std::shared_ptr<sf::TcpSocket>> sockets;
     sf::UdpSocket socket;
-    unsigned int local_port = PORT;
+    unsigned int local_port = 55000;
     // TODO: we need to bind our socket to a port
     if (socket.bind(local_port) != sf::Socket::Done)
     {

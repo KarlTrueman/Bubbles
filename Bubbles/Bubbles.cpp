@@ -22,6 +22,20 @@
 #define WINDOW_W  1200
 #define BUFF_SIZE 1024
 
+class move_msg
+{
+public:
+    sf::Uint32 id;
+    int ballcolour;
+    float posX;
+    float posY;
+    float velocityX;
+    float velocityY;
+    int score;
+    int cannon_angle;
+    bool isCannonReady;
+};
+
 int main(int argc, const char* argv[])
 {
     srand(time(NULL));
