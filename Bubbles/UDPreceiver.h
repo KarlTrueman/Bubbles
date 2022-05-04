@@ -8,7 +8,7 @@ class UDPreceiver
 {
 public:
 	UDPreceiver(sf::UdpSocket& s);
-	void recveiver();
+	void recv();
 private:
 	sf::UdpSocket& socket;
 };

@@ -1,8 +1,10 @@
 #include "accepter.h"
 #include "receiver.h"
+#include "util.hpp"
 #include <iostream>
 #include <sstream>
 #include <thread>
+#include <memory>
 
 Accepter::Accepter(Queue<message>& q, List<std::shared_ptr<sf::TcpSocket>>& s) :
     m_queue(q),
@@ -17,7 +19,7 @@ void Accepter::operator()()
     // TODO the listener has to listen.
     if (listener.listen(4304) != sf::Socket::Done)
     {
-        std::cerr << "Error listening to port \n";
+        std::cerr << "Error listening on port \n";
         return;
     }
     std::cout << "Bound to port\n";
@@ -38,7 +40,7 @@ void Accepter::operator()()
             << socket->getRemotePort()
             << std::endl;
         std::cout << ss.str();
-        std::shared_ptr<receiver> receiver = std::make_shared<receiver>(socket, m_queue);
+        std::shared_ptr<receiver> myReceiver = std::make_shared<receiver>(socket, m_queue);
         sf::Packet seedName;
         seedName << player << seed;
         sf::Packet seedSend = seedName;
@@ -51,6 +53,6 @@ void Accepter::operator()()
         }
         player++;
         // TODO launch a thread to receive with the receiver
-        std::thread(&receiver::recv_loop, receiver).detach();
+        std::thread(&receiver::recv_loop, myReceiver).detach();
     }
 }

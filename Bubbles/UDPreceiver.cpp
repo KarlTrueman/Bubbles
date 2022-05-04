@@ -5,7 +5,7 @@ UDPreceiver::UDPreceiver(sf::UdpSocket& s) : socket(s)
 {
 }
 
-void UDPreceiver::recveiver()
+void UDPreceiver::recv()
 {
 	sf::IpAddress recipient;
 	unsigned short remote_port;

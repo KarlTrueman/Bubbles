@@ -1,5 +1,4 @@
 #include "server.h"
-#include "map.hpp"
 #include "receiver.h"
 #include "Accepter.h"
 #include "util.hpp"
@@ -10,6 +9,8 @@
 #include"UDPReceiver.h"
 #include "queue.hpp"
 #include "list.h"
+#define PORT 4304
+#define BUFF_SIZE 1024
 
 void server::Server()
 {
@@ -21,7 +22,7 @@ void server::Server()
     if (socket.bind(local_port) != sf::Socket::Done)
     {
         std::cout << "Error binding to port";
-        exit;
+		exit(0);
     }
     else
     {
@@ -68,5 +69,4 @@ void server::Server()
 		sockets.for_each(sendToOne);
 
 	}
-    return 0;
 }

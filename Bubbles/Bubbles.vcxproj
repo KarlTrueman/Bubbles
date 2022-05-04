@@ -167,7 +167,6 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="receiver.h" />
     <ClInclude Include="server.h" />
-    <ClInclude Include="map.hpp" />
     <ClInclude Include="queue.hpp" />
     <ClInclude Include="UDPreceiver.h" />
     <ClInclude Include="util.hpp" />

@@ -6,9 +6,9 @@
 #include <thread>
 #include <tuple>
 
-int main()
+int Client()
 {
-    std::shared_ptr<sf::UdpSocket> socket_ptr = std::make_shared<sf::UdpSocket>();
+    std::shared_ptr<sf::TcpSocket> socket_ptr = std::make_shared<sf::TcpSocket>();
     // Sending a "register" message
     std::string userName;
     std::cout << "Please type in your user name: ";
@@ -17,7 +17,7 @@ int main()
     // register:userName
 
     Queue<message> queue;
-    receiver receiver{socket_ptr, queue};
+    receiver myReceiver{socket_ptr, queue};
     // TODO: launch a receiver thread
 
     std::string s = "";
