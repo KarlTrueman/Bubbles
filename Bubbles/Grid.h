@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include "bubble.h"
+#include "Bubble.h"
 #include <SFML/Graphics.hpp>
 
 class grid
@@ -10,11 +10,13 @@ public:
 	int gridWidth;
 	int columns = 14;
 	int rows = 12;
+	int radius = 15;
+	std::vector<std::vector<Bubble*>> g_tiles;
+	bool BubblesInterest(int row, int column);
+	void DeletedBubbles(int row, int column, sf::Color TargetColour);
+	int destroyedBalls;
 	int tileWidth;
 	int tileHeight;
-	int radius = 20;
-	std::vector<std::vector<bubble*>> g_tiles;
-	bool GroupOI(int row, int column);
-	void deleteGroupOI(int row, int column, sf::Color TargetColour);
-	int destroyedBalls;
 };
+
+

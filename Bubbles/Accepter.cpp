@@ -4,11 +4,10 @@
 #include <iostream>
 #include <sstream>
 #include <thread>
-#include <memory>
 
 Accepter::Accepter(Queue<message>& q, List<std::shared_ptr<sf::TcpSocket>>& s) :
     m_queue(q),
-    m_socket(s)
+    socket_(s)
 {}
 
 void Accepter::operator()()
@@ -16,35 +15,35 @@ void Accepter::operator()()
     int player = 1;
     unsigned int seed = time(NULL);
     sf::TcpListener listener;
-    // TODO the listener has to listen.
     if (listener.listen(55002) != sf::Socket::Done)
     {
-        std::cerr << "Error listening on port \n";
+        std::cerr << "Error on port:\n";
         return;
     }
     std::cout << "Bound to port\n";
+
     while (1)
     {
         std::shared_ptr<sf::TcpSocket> socket = std::make_shared<sf::TcpSocket>();
-        // TODO accept a connection on socket
+        //Accepting a connection on socket
         if (listener.accept(*socket) != sf::Socket::Done)
         {
-            std::cout << "Connection failed\n";
+            std::cerr << "cant accept connection\n";
             return;
         }
-        m_socket.push(socket);
+        socket_.push(socket);
         std::stringstream ss;
-        ss << "Accepted connection: "
+        ss << "Accepted a connection from: "
             << socket->getRemoteAddress()
             << ":"
             << socket->getRemotePort()
             << std::endl;
         std::cout << ss.str();
-        std::shared_ptr<receiver> myReceiver = std::make_shared<receiver>(socket, m_queue);
-        sf::Packet seedName;
-        seedName << player << seed;
-        sf::Packet seedSend = seedName;
+        std::shared_ptr<Receiver> receiver = std::make_shared<Receiver>(socket, m_queue);
 
+        sf::Packet SeedPacket;
+        SeedPacket << player << seed;
+        sf::Packet seedSend = SeedPacket;
         seedSend << player << seed;
         sf::Socket::Status statusSeed = socket->send(seedSend);
         if (statusSeed != sf::Socket::Done)
@@ -52,7 +51,8 @@ void Accepter::operator()()
 
         }
         player++;
-        // TODO launch a thread to receive with the receiver
-        std::thread(&receiver::recv_loop, myReceiver).detach();
+
+
+        std::thread(&Receiver::recv_loop, receiver).detach();
     }
 }

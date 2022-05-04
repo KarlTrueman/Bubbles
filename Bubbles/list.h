@@ -1,5 +1,5 @@
-#ifndef LIST_H
-#define LIST_H
+#ifndef LIST_HPP
+#define LIST_HPP
 
 #include <algorithm>
 #include <functional>
@@ -12,18 +12,14 @@ class List
 public:
     void for_each(std::function<void(T)> f)
     {
-        std::unique_lock<std::mutex> mlock(m_mutex);
-        std::for_each(m_List.begin(), m_List.end(), f);
+        std::unique_lock<std::mutex> mlock(mutex_);
+        std::for_each(list_.begin(), list_.end(), f);
     }
 
     void push(const T& item)
     {
-        std::unique_lock<std::mutex> mlock(m_mutex);
-        m_List.push_back(item);
-    }
-    int length()
-    {
-        return m_List.size();
+        std::unique_lock<std::mutex> mlock(mutex_);
+        list_.push_back(item);
     }
 
     List() = default;
@@ -31,10 +27,8 @@ public:
     List& operator=(const List&) = delete; // disable assignment
 
 private:
-    std::list<T> m_List;
-    std::mutex m_mutex;
+    std::list<T> list_;
+    std::mutex mutex_;
 };
 
-
-
-#endif // !LIST_H
+#endif

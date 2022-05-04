@@ -6,33 +6,33 @@
 #include <iostream>
 #include <sstream>
 #include <thread>
-#include <tuple>
 
-receiver::receiver(std::shared_ptr<sf::TcpSocket> s, Queue<message> &q) :
-    m_socket(s),
+
+Receiver::Receiver(std::shared_ptr<sf::TcpSocket> s, Queue<message>& q) :
+    socket_(s),
     m_queue(q)
 {
 }
 
-void receiver::recv_loop()
+void Receiver::recv_loop()
 {
     char buffer[256];
     {
         std::stringstream ss;
-        ss << m_socket->getRemoteAddress() << ":" << m_socket->getRemotePort() << std::endl;
+        ss << socket_->getRemoteAddress() << ":" << socket_->getRemotePort() << std::endl;
         std::cout << ss.str();
     }
     std::size_t received;
     sf::Packet packet;
     while (1)
     {
-        // TODO receive a message here
-        if (m_socket->receive(packet) != sf::Socket::Done)
+
+        if (socket_->receive(packet) != sf::Socket::Done)
         {
-            std::cout << "Error receiving message\n";
+            std::cout << "Cannont receive packet from client\n";
             return;
         }
-        sf::TcpSocket* t = m_socket.get();
-        m_queue.push(std::make_pair(m_socket.get(), packet));
+        sf::TcpSocket* tcp = socket_.get();
+        m_queue.push(std::make_pair(socket_.get(), packet));
     }
 }

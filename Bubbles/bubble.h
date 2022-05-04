@@ -6,7 +6,8 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
-class bubble
+
+class Bubble
 {
 public:
 	sf::Vector2f vel;
@@ -18,13 +19,12 @@ public:
 
 	sf::Color getColour();
 	bool isActive();
-	void setBubblePos(sf::Vector2f pos);
+	void setBubblePosition(sf::Vector2f pos);
 	void setBubbleColour(sf::Color fillColour);
-	void setActive(bool isActive);
+	void setActive(bool active);
+	void setVel(sf::Vector2f newVel);
+	void setRadius(int radius);
 	void setBubbleOrigin(sf::Vector2f origin);
-	void setBubbleVel(sf::Vector2f newVel);
-	void setBubbleRadius(int radius);
 	void move();
-
 };
 

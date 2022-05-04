@@ -1,12 +1,17 @@
+#ifndef RECEIVER_HPP
+#define RECEIVER_HPP
+#pragma once
+
 #include <SFML/Network.hpp>
 #include "queue.hpp"
-#include"util.hpp"
+#include "util.hpp"
 
-class receiver {
+class Receiver {
 public:
-    receiver(std::shared_ptr<sf::TcpSocket> s, Queue < message >& queue);
+    Receiver(std::shared_ptr<sf::TcpSocket> s, Queue<message>& queue);
     void recv_loop();
 private:
-    std::shared_ptr<sf::TcpSocket> m_socket;
+    std::shared_ptr<sf::TcpSocket> socket_;
     Queue<message>& m_queue;
 };
+#endif

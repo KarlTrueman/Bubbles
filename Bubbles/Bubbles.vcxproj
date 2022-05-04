@@ -149,25 +149,23 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Accepter.cpp" />
-    <ClCompile Include="bubble.cpp" />
+    <ClCompile Include="Bubble.cpp" />
     <ClCompile Include="Bubbles.cpp" />
     <ClCompile Include="client.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="queue.cpp" />
-    <ClCompile Include="receiver.cpp" />
+    <ClCompile Include="Receiver.cpp" />
     <ClCompile Include="server.cpp" />
     <ClCompile Include="UDPreceiver.cpp" />
     <ClCompile Include="util.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Accepter.h" />
-    <ClInclude Include="bubble.h" />
+    <ClInclude Include="Bubble.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="list.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="queue.h" />
-    <ClInclude Include="receiver.h" />
+    <ClInclude Include="Receiver.h" />
     <ClInclude Include="server.h" />
     <ClInclude Include="queue.hpp" />
     <ClInclude Include="UDPreceiver.h" />

@@ -17,7 +17,7 @@ int Client()
     // register:userName
 
     Queue<message> queue;
-    receiver myReceiver{socket_ptr, queue};
+    Receiver myReceiver{socket_ptr, queue};
     // TODO: launch a receiver thread
 
     std::string s = "";
@@ -28,15 +28,8 @@ int Client()
         s = "";
         std::getline(std::cin, s);
         std::cout << "Sending: \"" << s << "\"" << std::endl;
-        // 1.1 send the new input to the server
-        // 1.2 receive messages from the server
-        // In the game client, we want to process received messages here.
-        // TODO: send the message to the server
-        // message:s
         std::stringstream ss;
         ss << "message:" << s;
-        // 2 Simulate the game world
-        // 3 Render
     }
     return 0;
 }
