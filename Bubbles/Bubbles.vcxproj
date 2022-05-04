@@ -148,7 +148,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Accepter.cpp" />
+    <ClCompile Include="bubble.cpp" />
     <ClCompile Include="Bubbles.cpp" />
+    <ClCompile Include="client.cpp" />
+    <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="receiver.cpp" />
+    <ClCompile Include="server.cpp" />
+    <ClCompile Include="UDPreceiver.cpp" />
+    <ClCompile Include="util.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Accepter.h" />
+    <ClInclude Include="bubble.h" />
+    <ClInclude Include="Grid.h" />
+    <ClInclude Include="list.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="receiver.h" />
+    <ClInclude Include="server.h" />
+    <ClInclude Include="map.hpp" />
+    <ClInclude Include="queue.hpp" />
+    <ClInclude Include="UDPreceiver.h" />
+    <ClInclude Include="util.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
