@@ -9,6 +9,7 @@
 #include "server.h"
 #include <thread>
 #include <windows.h>
+#include <vector>
 
 
 #define BUBBLE_SIZE 20
@@ -144,7 +145,7 @@ int main(int argc, const char* argv[])
     sf::Vector2f p1_Pos(WINDOW_W / 4, (WINDOW_H));
     //P2 Creation
     Player* p2 = new Player;
-    sf::Vector2f p2_Pos(WINDOW_W / 4, (WINDOW_H));
+    sf::Vector2f p2_Pos((WINDOW_W / 4) + (WINDOW_W / 2), (WINDOW_H));
 
 
     //Create a cannon for player 1
@@ -154,50 +155,50 @@ int main(int argc, const char* argv[])
     //Create a cannon for player 2
     p2->playerCannon.setSize(sf::Vector2f(CANNON_W, CANNON_H));
     p2->playerCannon.setOrigin(CANNON_W / 2, CANNON_H);
-    p2->playerCannon.setPosition(p1_Pos);
+    p2->playerCannon.setPosition(p2_Pos);
 
-    //player 1 grid
-    for (size_t i = 0; i < p1->gridOfBubbles.rows + 4; i++) {
-        std::vector<Bubble*> newVector;
-        for (size_t j = 0; j < p1->gridOfBubbles.columns; j++) {
-            Bubble* bubble = new Bubble;
-            bubble->setRadius(BUBBLE_SIZE);
-            bubble->pos = sf::Vector2f(BUBBLE_SIZE * 2 * j + (i % 2) * BUBBLE_SIZE, i * 33);
+    ////player 1 grid
+    //for (size_t i = 0; i < p1->gridOfBubbles.rows + 4; i++) {
+    //    std::vector<Bubble*> newVector;
+    //    for (size_t j = 0; j < p1->gridOfBubbles.columns; j++) {
+    //        Bubble* bubble = new Bubble;
+    //        bubble->setRadius(BUBBLE_SIZE);
+    //        bubble->pos = sf::Vector2f(BUBBLE_SIZE * 2 * j + (i % 2) * BUBBLE_SIZE, i * 33);
 
-            bubble->setBubblePosition(bubble->pos);
-            bubble->gridPos = sf::Vector2f(i, j);
-            int points = rand() % 5;
-            bubble->setBubbleColour(colours[points]);
-            p1->playerColour = points;
-            if (i >= p1->gridOfBubbles.rows)
-            {
-                bubble->setActive(false);
-            }
-            newVector.push_back(bubble);
-        }
-        p1->gridOfBubbles.g_tiles.push_back(newVector);
-    }
+    //        bubble->setBubblePosition(bubble->pos);
+    //        bubble->gridPos = sf::Vector2f(i, j);
+    //        int points = rand() % 5;
+    //        bubble->setBubbleColour(colours[points]);
+    //        p1->playerColour = points;
+    //        if (i >= p1->gridOfBubbles.rows)
+    //        {
+    //            bubble->setActive(false);
+    //        }
+    //        newVector.push_back(bubble);
+    //    }
+    //    p1->gridOfBubbles.g_tiles.push_back(newVector);
+    //}
 
-    //player 2 grid
-    for (size_t i = 0; i < p2->gridOfBubbles.rows + 4; i++) {
-        std::vector<Bubble*> newVector;
-        for (size_t j = 0; j < p2->gridOfBubbles.columns; j++) {
-            Bubble* bubble = new Bubble;
-            bubble->setRadius(BUBBLE_SIZE);
-            bubble->pos = sf::Vector2f(BUBBLE_SIZE * 2 * j + (i % 2) * BUBBLE_SIZE, i * 33);
-            bubble->pos.x = bubble->pos.x + WINDOW_W / 2;
-            bubble->setBubblePosition(bubble->pos);
-            bubble->gridPos = sf::Vector2f(i, j);
-            int points = rand() % 5;
-            bubble->setBubbleColour(colours[points]);
-            p2->playerColour = points;
-            if (i >= p2->gridOfBubbles.rows)
-            {
-                bubble->setActive(false);
-            }
-            newVector.push_back(bubble);
-        }
-        p2->gridOfBubbles.g_tiles.push_back(newVector);
+    ////player 2 grid
+    //for (size_t i = 0; i < p2->gridOfBubbles.rows + 4; i++) {
+    //    std::vector<Bubble*> newVector;
+    //    for (size_t j = 0; j < p2->gridOfBubbles.columns; j++) {
+    //        Bubble* bubble = new Bubble;
+    //        bubble->setRadius(BUBBLE_SIZE);
+    //        bubble->pos = sf::Vector2f(BUBBLE_SIZE * 2 * j + (i % 2) * BUBBLE_SIZE, i * 33);
+    //        bubble->pos.x = bubble->pos.x + WINDOW_W / 2;
+    //        bubble->setBubblePosition(bubble->pos);
+    //        bubble->gridPos = sf::Vector2f(i, j);
+    //        int points = rand() % 5;
+    //        bubble->setBubbleColour(colours[points]);
+    //        p2->playerColour = points;
+    //        if (i >= p2->gridOfBubbles.rows)
+    //        {
+    //            bubble->setActive(false);
+    //        }
+    //        newVector.push_back(bubble);
+    //    }
+    //    p2->gridOfBubbles.g_tiles.push_back(newVector);
 
         Player* current = new Player;
         Player* other = new Player;
@@ -240,7 +241,7 @@ int main(int argc, const char* argv[])
              }
          }*/
 
-        std::vector<sf::CircleShape> bubblesOI;
+        //std::vector<sf::CircleShape> bubblesOI;
 
         /*  sf::RectangleShape cannon1(sf::Vector2f(CANNON_W, CANNON_H));
           cannon1.setOrigin(CANNON_W / 2, CANNON_H);
@@ -602,24 +603,24 @@ int main(int argc, const char* argv[])
             window.draw(current->player.bubble);
             window.draw(other->player.bubble);
 
-            //p1 grid
-            for (size_t i = 1; i < current->gridOfBubbles.rows + 4; i++) {
-                for (size_t j = 0; j < current->gridOfBubbles.columns; j++) {
-                    if (current->gridOfBubbles.g_tiles[i][j]->active)
-                    {
-                        window.draw(current->gridOfBubbles.g_tiles[i][j]->bubble);
-                    }
-                }
-            }
-            //p2 grid
-            for (size_t i = 1; i < other->gridOfBubbles.rows + 4; i++) {
-                for (size_t j = 0; j < other->gridOfBubbles.columns; j++) {
-                    if (other->gridOfBubbles.g_tiles[i][j]->active)
-                    {
-                        window.draw(other->gridOfBubbles.g_tiles[i][j]->bubble);
-                    }
-                }
-            }
+            ////p1 grid
+            //for (size_t i = 1; i < current->gridOfBubbles.rows + 4; i++) {
+            //    for (size_t j = 0; j < current->gridOfBubbles.columns; j++) {
+            //        if (current->gridOfBubbles.g_tiles[i][j]->active)
+            //        {
+            //            window.draw(current->gridOfBubbles.g_tiles[i][j]->bubble);
+            //        }
+            //    }
+            //}
+            ////p2 grid
+            //for (size_t i = 1; i < other->gridOfBubbles.rows + 4; i++) {
+            //    for (size_t j = 0; j < other->gridOfBubbles.columns; j++) {
+            //        if (other->gridOfBubbles.g_tiles[i][j]->active)
+            //        {
+            //            window.draw(other->gridOfBubbles.g_tiles[i][j]->bubble);
+            //        }
+            //    }
+            //}
 
 
             // window.draw(ball2);
@@ -636,4 +637,4 @@ int main(int argc, const char* argv[])
         }
         return 0;
     }
-}
+//}
